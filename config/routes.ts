@@ -43,19 +43,14 @@
 		component: './TodoList',
 	},
 
-	// DANH MUC HE THONG
-	// {
-	// 	name: 'DanhMuc',
-	// 	path: '/danh-muc',
-	// 	icon: 'copy',
-	// 	routes: [
-	// 		{
-	// 			name: 'ChucVu',
-	// 			path: 'chuc-vu',
-	// 			component: './DanhMuc/ChucVu',
-	// 		},
-	// 	],
-	// },
+	// --- PHẦN THÊM MỚI ---
+	{
+		path: '/product',
+		name: 'Quản lý Sản phẩm',
+		icon: 'ShoppingOutlined',
+		component: './Product',
+	},
+	// ---------------------
 
 	{
 		path: '/notification',
