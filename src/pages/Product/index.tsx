@@ -1,88 +1,94 @@
 import React, { useState } from 'react';
-import { Table, Button, Modal, Form, Input, InputNumber, Space, Popconfirm, message } from 'antd';
+import { Table, Button, Modal, Form, Input, InputNumber, Space, Popconfirm, message, Tag } from 'antd';
 import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
+import { useModel } from 'umi';
 
 const ProductManager = () => {
-    // 1. Dữ liệu mẫu khởi tạo
-    const [products, setProducts] = useState([
-        { id: 1, name: 'Laptop Dell XPS 13', price: 25000000, quantity: 10 },
-        { id: 2, name: 'iPhone 15 Pro Max', price: 30000000, quantity: 15 },
-        { id: 3, name: 'Samsung Galaxy S24', price: 22000000, quantity: 20 },
-        { id: 4, name: 'iPad Air M2', price: 18000000, quantity: 12 },
-        { id: 5, name: 'MacBook Air M3', price: 28000000, quantity: 8 },
-    ]);
-
+    const { products, deleteProduct, saveProduct } = useModel('product');
     const [searchText, setSearchText] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [form] = Form.useForm();
 
-    // 2. Thêm sản phẩm mới
-    const handleAdd = (values) => {
-        const newProduct = { ...values, id: Date.now() };
-        setProducts([...products, newProduct]);
+    const handleFinish = (values: any) => {
+        saveProduct(values);
         setIsModalOpen(false);
         form.resetFields();
-        message.success('Thêm sản phẩm thành công!');
+        message.success('Đã lưu thay đổi!');
     };
 
-    // 3. Xóa sản phẩm
-    const handleDelete = (id) => {
-        setProducts(products.filter(item => item.id !== id));
-        message.success('Xóa sản phẩm thành công!');
-    };
-
-    // Cấu hình các cột của Table
     const columns = [
-        { title: 'STT', dataIndex: 'id', key: 'id', render: (text, record, index) => index + 1 },
+        { title: 'STT', render: (_: any, __: any, index: number) => index + 1 },
         { title: 'Tên sản phẩm', dataIndex: 'name', key: 'name' },
-        { title: 'Giá', dataIndex: 'price', key: 'price', render: (val) => val.toLocaleString() + ' đ' },
-        { title: 'Số lượng', dataIndex: 'quantity', key: 'quantity' },
+        { title: 'Danh mục', dataIndex: 'category', key: 'category' },
+        { title: 'Giá', dataIndex: 'price', render: (v: number) => v.toLocaleString() + ' đ' },
+        { title: 'Tồn kho', dataIndex: 'quantity', key: 'quantity' },
+        {
+            title: 'Trạng thái',
+            dataIndex: 'quantity',
+            render: (qty: number) => {
+                if (qty > 10) return <Tag color="green">Còn hàng</Tag>;
+                if (qty >= 1) return <Tag color="orange">Sắp hết</Tag>;
+                return <Tag color="red">Hết hàng</Tag>;
+            }
+        },
         {
             title: 'Thao tác',
-            key: 'action',
-            render: (text, record) => (
-                <Popconfirm title="Bạn chắc chắn muốn xóa?" onConfirm={() => handleDelete(record.id)}>
-                    <Button type="link" danger>Xóa</Button>
-                </Popconfirm>
+            render: (_: any, record: any) => (
+                <Space>
+                    <Button type="link" onClick={() => {
+                        form.setFieldsValue(record); // QUAN TRỌNG: Đổ dữ liệu vào form
+                        setIsModalOpen(true);
+                    }}>
+                        Sửa
+                    </Button>
+                    <Popconfirm title="Xác nhận xóa?" onConfirm={() => deleteProduct(record.id)}>
+                        <Button type="link" danger>Xóa</Button>
+                    </Popconfirm>
+                </Space>
             ),
         },
     ];
 
-    // 4. Tìm kiếm sản phẩm
-    const filteredData = products.filter(p =>
-        p.name.toLowerCase().includes(searchText.toLowerCase())
-    );
-
     return (
         <div style={{ padding: '20px', background: '#fff' }}>
-            <Space style={{ marginBottom: 16, justifyContent: 'space-between', width: '100%' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
                 <Input
-                    placeholder="Tìm theo tên sản phẩm..."
+                    placeholder="Tìm tên sản phẩm..."
                     prefix={<SearchOutlined />}
                     onChange={e => setSearchText(e.target.value)}
                     style={{ width: 300 }}
                 />
-                <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsModalOpen(true)}>
+                <Button type="primary" icon={<PlusOutlined />} onClick={() => {
+                    form.resetFields();
+                    setIsModalOpen(true);
+                }}>
                     Thêm sản phẩm
                 </Button>
-            </Space>
+            </div>
 
-            <Table columns={columns} dataSource={filteredData} rowKey="id" />
+            <Table columns={columns} dataSource={products.filter((p: any) => p.name.toLowerCase().includes(searchText.toLowerCase()))} rowKey="id" />
 
             <Modal
-                title="Thêm sản phẩm mới"
+                title={form.getFieldValue('id') ? "Sửa sản phẩm" : "Thêm sản phẩm"}
                 visible={isModalOpen}
                 onOk={() => form.submit()}
                 onCancel={() => setIsModalOpen(false)}
+                destroyOnClose
             >
-                <Form form={form} layout="vertical" onFinish={handleAdd}>
-                    <Form.Item name="name" label="Tên sản phẩm" rules={[{ required: true, message: 'Bắt buộc nhập tên!' }]}>
+                <Form form={form} layout="vertical" onFinish={handleFinish}>
+                    {/* Trường ID ẩn để Model biết đang sửa dòng nào */}
+                    <Form.Item name="id" hidden><Input /></Form.Item>
+
+                    <Form.Item name="name" label="Tên sản phẩm" rules={[{ required: true }]}>
                         <Input />
                     </Form.Item>
-                    <Form.Item name="price" label="Giá" rules={[{ required: true, type: 'number', min: 1, message: 'Giá phải là số dương!' }]}>
+                    <Form.Item name="category" label="Danh mục" rules={[{ required: true }]}>
+                        <Input />
+                    </Form.Item>
+                    <Form.Item name="price" label="Giá" rules={[{ required: true }]}>
                         <InputNumber style={{ width: '100%' }} />
                     </Form.Item>
-                    <Form.Item name="quantity" label="Số lượng" rules={[{ required: true, type: 'number', min: 1, message: 'Số lượng phải là số nguyên dương!' }]}>
+                    <Form.Item name="quantity" label="Số lượng tồn kho" rules={[{ required: true }]}>
                         <InputNumber style={{ width: '100%' }} />
                     </Form.Item>
                 </Form>
@@ -91,4 +97,5 @@ const ProductManager = () => {
     );
 };
 
+nv
 export default ProductManager;
