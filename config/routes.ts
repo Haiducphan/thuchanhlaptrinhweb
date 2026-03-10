@@ -16,6 +16,20 @@
 		],
 	},
 
+	// --- BÀI THỰC HÀNH 02  ---
+	{
+		path: '/oan-tu-ti',
+		name: 'TH02 - Bài 1: Oẳn Tù Tì',
+		icon: 'PlayCircleOutlined',
+		component: './GameOanTuTi',
+	},
+	{
+		path: '/ngan-hang-de',
+		name: 'TH02 - Bài 2: Ngân hàng đề thi',
+		icon: 'DatabaseOutlined',
+		component: './BankManager',
+	},
+	// ------------------------------
 
 	{
 		path: '/guess-number',
@@ -23,17 +37,12 @@
 		icon: 'QuestionCircleOutlined',
 		component: './GuessNumber',
 	},
-
-
 	{
 		path: '/study-manager',
 		name: 'Bài 2: Quản lý học tập',
 		icon: 'BookOutlined',
 		component: './StudyManager',
 	},
-
-
-
 	{
 		path: '/dashboard',
 		name: 'Thống kê tổng quan',
@@ -53,8 +62,6 @@
 		component: './Order',
 	},
 
-	///////////////////////////////////
-	// TIỆN ÍCH KHÁC
 	{
 		path: '/random-user',
 		name: 'RandomUser',
@@ -90,6 +97,5 @@
 	{ path: '/403', component: './exception/403/403Page', layout: false },
 	{ path: '/hold-on', component: './exception/DangCapNhat', layout: false },
 
-	// Dòng này chặn tất cả các path phía dưới nó, nên Bài 1 phải ở trên nó
 	{ component: './exception/404' },
 ];
