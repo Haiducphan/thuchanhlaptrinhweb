@@ -16,7 +16,7 @@
 		],
 	},
 
-	// --- BÀI THỰC HÀNH 02  ---
+	// --- BÀI THỰC HÀNH 02 ---
 	{
 		path: '/oan-tu-ti',
 		name: 'TH02 - Bài 1: Oẳn Tù Tì',
@@ -29,7 +29,15 @@
 		icon: 'DatabaseOutlined',
 		component: './BankManager',
 	},
-	// ------------------------------
+
+	// --- BÀI THỰC HÀNH 03  ---
+	{
+		path: '/booking-manager',
+		name: 'TH03 - Quản lý Đặt lịch',
+		icon: 'CalendarOutlined',
+		component: './BookingManager',
+	},
+
 
 	{
 		path: '/guess-number',
