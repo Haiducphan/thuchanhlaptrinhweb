@@ -181,4 +181,12 @@ axios.interceptors.response.use(
 	},
 );
 
+// ===== Mock Interceptor Registration (after axios is fully initialized) =====
+import { registerMockInterceptor } from '@/mock/mockInterceptor';
+try {
+	registerMockInterceptor();
+} catch (e) {
+	console.warn('[Mock] Interceptor registration failed:', e);
+}
+
 export default axios;

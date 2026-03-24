@@ -100,7 +100,44 @@
 		hideInMenu: true,
 	},
 
-	// ĐIỀU HƯỚNG VÀ NGOẠI LỆ 
+	// =============================================
+	// BÀI THỰC HÀNH - QUẢN LÝ VĂN BẰNG
+	// =============================================
+	{
+		path: '/van-bang',
+		name: 'menu.QLVB',
+		icon: 'FileTextOutlined',
+		routes: [
+			{
+				path: '/van-bang/tra-cuu',
+				name: 'menu.QLVB.TraCuuVB',
+				component: './VanBang/TraCuu',
+				layout: false,
+			},
+			{
+				path: '/van-bang/so-van-bang',
+				name: 'menu.QLVB.SoVanBang',
+				component: './VanBang/SoVanBang',
+			},
+			{
+				path: '/van-bang/quyet-dinh',
+				name: 'menu.QLVB.QDTotNghiep',
+				component: './VanBang/QuyetDinh',
+			},
+			{
+				path: '/van-bang/cau-hinh-bieu-mau',
+				name: 'menu.QLVB.CauHinhBieuMau',
+				component: './VanBang/TruongCauHinh',
+			},
+			{
+				path: '/van-bang/thong-tin-van-bang',
+				name: 'menu.QLVB.ThongTinVanBang',
+				component: './VanBang/VanBang',
+			},
+		],
+	},
+
+	// ĐIỀU HƯỚNG VÀ NGOẠI LỆ
 	{ path: '/', redirect: '/dashboard' },
 	{ path: '/403', component: './exception/403/403Page', layout: false },
 	{ path: '/hold-on', component: './exception/DangCapNhat', layout: false },

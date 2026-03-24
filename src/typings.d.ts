@@ -59,3 +59,96 @@ declare const APP_CONFIG_TITLE_CORE: string;
 declare const APP_CONFIG_TITLE_CSVC: string;
 declare const APP_CONFIG_TITLE_THU_VIEN: string;
 declare const APP_CONFIG_TITLE_QLVB: string;
+
+// =============================================
+// VAN BANG - TYPING DECLARATIONS
+// =============================================
+
+declare module SoVanBang {
+  export interface IRecord {
+    _id: string;
+    nam: number;
+    ten_so?: string;
+    ghi_chu?: string;
+    createdAt?: string;
+    updatedAt?: string;
+  }
+}
+
+declare module QuyetDinh {
+  export interface IRecord {
+    _id: string;
+    so_quyet_dinh: string;
+    ngay_ban_hanh: string;
+    trich_yeu: string;
+    so_van_bang_id: string;
+    so_luot_tra_cuu?: number;
+    createdAt?: string;
+    updatedAt?: string;
+    // Populate
+    soVanBang?: SoVanBang.IRecord;
+  }
+}
+
+declare module TruongCauHinh {
+  export type TKieuDuLieu = 'String' | 'Number' | 'Date';
+
+  export interface IRecord {
+    _id: string;
+    ten_truong: string;
+    kieu_du_lieu: TKieuDuLieu;
+    thu_tu_hien_thi?: number;
+    bat_buoc?: boolean;
+    createdAt?: string;
+    updatedAt?: string;
+  }
+}
+
+declare module VanBang {
+  export interface IRecord {
+    _id: string;
+    so_vao_so: number;
+    so_hieu_van_bang: string;
+    ma_sinh_vien: string;
+    ho_ten: string;
+    ngay_sinh: string;
+    quyet_dinh_id: string;
+    createdAt?: string;
+    updatedAt?: string;
+    // Populate
+    quyetDinh?: QuyetDinh.IRecord;
+    chiTiet?: VanBangChiTiet.IRecord[];
+  }
+}
+
+declare module VanBangChiTiet {
+  export interface IRecord {
+    _id: string;
+    van_bang_id: string;
+    truong_cau_hinh_id: string;
+    gia_tri?: string;
+    createdAt?: string;
+    updatedAt?: string;
+    // Populate
+    truongCauHinh?: TruongCauHinh.IRecord;
+  }
+}
+
+declare module TraCuu {
+  export interface IParams {
+    so_hieu_van_bang?: string;
+    so_vao_so?: number | string;
+    ma_sinh_vien?: string;
+    ho_ten?: string;
+    ngay_sinh?: string;
+  }
+
+  export interface IKetQua {
+    vanBang: VanBang.IRecord;
+    chiTietList: Array<{
+      truongCauHinh: TruongCauHinh.IRecord;
+      gia_tri: string;
+    }>;
+    quyetDinh: QuyetDinh.IRecord;
+  }
+}
