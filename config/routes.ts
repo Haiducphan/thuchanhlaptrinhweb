@@ -23,6 +23,42 @@
 		icon: 'PlayCircleOutlined',
 		component: './GameOanTuTi',
 	},
+
+	// =============================================
+	// BÀI THỰC HÀNH - QUẢN LÝ CÂU LẠC BỘ
+	// =============================================
+	{
+		path: '/cau-lac-bo',
+		name: 'Quản lý Câu lạc bộ',
+		icon: 'TeamOutlined',
+		routes: [
+			{
+				path: '/cau-lac-bo',
+				name: 'Danh sách CLB',
+				component: './CauLacBo',
+			},
+			{
+				path: '/cau-lac-bo/don-dang-ky',
+				name: 'Đơn đăng ký',
+				component: './DonDangKy',
+			},
+			{
+				path: '/cau-lac-bo/thanh-vien',
+				name: 'Thành viên CLB',
+				component: './ThanhVien',
+			},
+			{
+				path: '/cau-lac-bo/thong-ke',
+				name: 'Báo cáo & Thống kê',
+				component: './ThongKe',
+			},
+			{
+				path: '/cau-lac-bo/lich-su',
+				name: 'Lịch sử thao tác',
+				component: './LichSuThaoTac',
+			},
+		],
+	},
 	{
 		path: '/ngan-hang-de',
 		name: 'TH02 - Bài 2: Ngân hàng đề thi',

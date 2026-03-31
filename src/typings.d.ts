@@ -134,6 +134,71 @@ declare module VanBangChiTiet {
   }
 }
 
+declare module CauLacBo {
+	export interface IRecord {
+		_id: string;
+		ten: string;
+		anhDaiDien?: string;
+		ngayThanhLap?: string;
+		moTa?: string;
+		chunhiemClb?: string;
+		hoatDong?: boolean;
+		createdAt?: string;
+		updatedAt?: string;
+	}
+}
+
+declare module DonDangKy {
+	export type TrangThaiDon = 'Pending' | 'Approved' | 'Rejected';
+	export interface IRecord {
+		_id: string;
+		hoTen: string;
+		email: string;
+		sdt: string;
+		gioiTinh?: string;
+		diaChi?: string;
+		soTruong?: string;
+		cauLacBoId?: string;
+		cauLacBoTen?: string;
+		lyDoDangKy?: string;
+		trangThai?: TrangThaiDon;
+		ghiChu?: string;
+		createdAt?: string;
+		updatedAt?: string;
+	}
+}
+
+declare module ThanhVien {
+	export interface IRecord {
+		_id: string;
+		hoTen: string;
+		email: string;
+		sdt: string;
+		gioiTinh?: string;
+		diaChi?: string;
+		soTruong?: string;
+		cauLacBoId?: string;
+		cauLacBoTen?: string;
+		donDangKyId?: string;
+		createdAt?: string;
+		updatedAt?: string;
+	}
+}
+
+declare module LichSuThaoTac {
+	export type HanhDong = 'Approved' | 'Rejected';
+	export interface IRecord {
+		_id: string;
+		donDangKyId: string;
+		hoTen: string;
+		hanhDong: HanhDong;
+		lyDo?: string;
+		thoiGian: string;
+		createdAt?: string;
+		updatedAt?: string;
+	}
+}
+
 declare module TraCuu {
   export interface IParams {
     so_hieu_van_bang?: string;
