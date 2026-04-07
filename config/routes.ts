@@ -178,5 +178,31 @@
 	{ path: '/403', component: './exception/403/403Page', layout: false },
 	{ path: '/hold-on', component: './exception/DangCapNhat', layout: false },
 
+	// === TRAVEL PLANNING ===
+	{
+		path: '/travel',
+		name: 'Du Lịch',
+		icon: 'CarryOutOutlined',
+		layout: false,
+		routes: [
+			{
+				path: '/travel',
+				component: './Travel/index',
+			},
+			{
+				path: '/travel/lich-trinh',
+				component: './Travel/LichTrinh',
+			},
+			{
+				path: '/travel/ngan-sach',
+				component: './Travel/NganSach',
+			},
+			{
+				path: '/travel/quan-tri',
+				component: './Travel/QuanTri',
+			},
+		],
+	},
+
 	{ component: './exception/404' },
 ];
