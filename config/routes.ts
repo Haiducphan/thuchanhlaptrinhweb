@@ -88,6 +88,12 @@
 		component: './StudyManager',
 	},
 	{
+		path: '/khoa-hoc',
+		name: 'Quản lý Khóa học',
+		icon: 'ReadOutlined',
+		component: './KhoaHoc',
+	},
+	{
 		path: '/dashboard',
 		name: 'Thống kê tổng quan',
 		component: './Dashboard',
