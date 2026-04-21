@@ -73,6 +73,12 @@
 		icon: 'CalendarOutlined',
 		component: './BookingManager',
 	},
+	{
+		path: '/blog-manager',
+		name: 'TH07 - Blog cá nhân',
+		icon: 'ReadOutlined',
+		component: './BlogManager',
+	},
 
 
 	{
