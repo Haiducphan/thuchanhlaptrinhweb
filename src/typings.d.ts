@@ -199,6 +199,30 @@ declare module LichSuThaoTac {
 	}
 }
 
+declare module MucTieu {
+	export interface IRecord {
+		_id: string;
+		ten: string;
+		loai: string;
+		giaTriMucTieu: number;
+		giaTriHienTai: number;
+		deadline: string;
+		trangThai: string;
+	}
+}
+
+declare module BaiTap {
+	export interface IRecord {
+		_id: string;
+		ten: string;
+		nhomCo: string;
+		mucDo: string;
+		moTa: string;
+		calo: number;
+		huongDan?: string;
+	}
+}
+
 declare module TraCuu {
   export interface IParams {
     so_hieu_van_bang?: string;
