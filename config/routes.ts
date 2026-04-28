@@ -80,6 +80,18 @@
 		component: './BlogManager',
 	},
 
+	{
+		path: '/quan-ly-muc-tieu',
+		name: 'TH08 - Quản lý Mục tiêu',
+		icon: 'AimOutlined',
+		component: './MucTieu',
+	},
+	{
+		path: '/thu-vien-bai-tap',
+		name: 'TH08 - Thư viện Bài tập',
+		icon: 'DribbbleSquareOutlined',
+		component: './ThuVienBaiTap',
+	},
 
 	{
 		path: '/guess-number',
