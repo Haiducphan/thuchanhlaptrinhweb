@@ -58,6 +58,7 @@ const POST_KEY = 'th07_blog_data';
 const OLD_NAME = 'Nguyễn Hải Đức';
 const CURRENT_NAME = 'Phan Hải Đức';
 const DEFAULT_AVATAR = 'https://i.pravatar.cc/240?img=12';
+const cardShadow = '0 8px 24px rgba(15, 23, 42, 0.06)';
 
 const theLoaiMacDinh: TheLoai[] = [
 	{ id: 1, ten: 'Công nghệ' },
@@ -271,15 +272,13 @@ const BlogManager: React.FC = () => {
 		return dataHome.slice((page - 1) * 9, page * 9);
 	}, [dataHome, page]);
 
-  const relatedPosts = useMemo(() => {
-    if (!selectedPost) return [];
-    const published = posts.filter((p) => p.id !== selectedPost.id && p.trangThai === 'Đã đăng');
-    const sameTag = published.filter((p) =>
-      p.danhSachTag.some((t) => selectedPost.danhSachTag.includes(t)),
-    );
-    if (sameTag.length) return sameTag.slice(0, 3);
-    return published.slice(0, 3);
-  }, [posts, selectedPost]);
+	const relatedPosts = useMemo(() => {
+		if (!selectedPost) return [];
+		const published = posts.filter((p) => p.id !== selectedPost.id && p.trangThai === 'Đã đăng');
+		const sameTag = published.filter((p) => p.danhSachTag.some((t) => selectedPost.danhSachTag.includes(t)));
+		if (sameTag.length) return sameTag.slice(0, 3);
+		return published.slice(0, 3);
+	}, [posts, selectedPost]);
 
 	const adminPosts = useMemo(() => {
 		return posts
@@ -416,7 +415,12 @@ const BlogManager: React.FC = () => {
 	};
 
 	return (
-		<Layout style={{ minHeight: '100vh', background: '#f0f2f5' }}>
+		<Layout
+			style={{
+				minHeight: '100vh',
+				background: 'linear-gradient(180deg, #f3f4f6 0%, #eceff3 100%)',
+			}}
+		>
 			<Header
 				style={{
 					background: '#fff',
@@ -424,6 +428,7 @@ const BlogManager: React.FC = () => {
 					display: 'flex',
 					alignItems: 'center',
 					borderBottom: '1px solid #e8e8e8',
+					boxShadow: '0 2px 12px rgba(0,0,0,0.04)',
 				}}
 			>
 				<div style={{ fontSize: 20, fontWeight: 700, color: '#1677ff', marginRight: 24 }}>BLOG APP</div>
@@ -445,7 +450,7 @@ const BlogManager: React.FC = () => {
 				<div style={{ maxWidth: 1320, margin: '0 auto' }}>
 					{view === 'home' && (
 						<>
-							<Card style={{ marginBottom: 16 }}>
+							<Card style={{ marginBottom: 20, borderRadius: 12, boxShadow: cardShadow }}>
 								<Space direction='vertical' size={12} style={{ width: '100%' }}>
 									<Input.Search
 										placeholder='Tìm kiếm bài viết theo tiêu đề...'
@@ -483,7 +488,7 @@ const BlogManager: React.FC = () => {
 											hoverable
 											cover={<img src={item.anhNen} alt={item.tieuDe} style={{ height: 180, objectFit: 'cover' }} />}
 											onClick={() => handleRead(item)}
-											style={{ height: '100%' }}
+											style={{ height: '100%', borderRadius: 12, overflow: 'hidden', boxShadow: cardShadow }}
 											bodyStyle={{ display: 'flex', flexDirection: 'column', minHeight: 220 }}
 										>
 											<Card.Meta
@@ -519,7 +524,7 @@ const BlogManager: React.FC = () => {
 					)}
 
 					{view === 'detail' && selectedPost && (
-						<Card style={{ maxWidth: 980, margin: '0 auto' }}>
+						<Card style={{ maxWidth: 980, margin: '0 auto', borderRadius: 14, boxShadow: cardShadow }}>
 							<Button icon={<LeftOutlined />} onClick={() => setView('home')} style={{ marginBottom: 16 }}>
 								Quay lại danh sách
 							</Button>
@@ -550,7 +555,12 @@ const BlogManager: React.FC = () => {
 							<Row gutter={[12, 12]}>
 								{relatedPosts.map((p) => (
 									<Col xs={24} md={8} key={p.id}>
-										<Card size='small' hoverable onClick={() => handleRead(p)}>
+										<Card
+											size='small'
+											hoverable
+											onClick={() => handleRead(p)}
+											style={{ borderRadius: 10, minHeight: 108 }}
+										>
 											<Card.Meta title={p.tieuDe} description={p.ngayTao} />
 										</Card>
 									</Col>
@@ -565,7 +575,7 @@ const BlogManager: React.FC = () => {
 					)}
 
 					{view === 'about' && (
-						<Card style={{ maxWidth: 760, margin: '0 auto' }}>
+						<Card style={{ maxWidth: 760, margin: '0 auto', borderRadius: 14, boxShadow: cardShadow }}>
 							<Space direction='vertical' align='center' style={{ width: '100%' }}>
 								<Avatar size={110} src={DEFAULT_AVATAR} />
 								<Title level={2} style={{ marginBottom: 0 }}>
@@ -598,7 +608,7 @@ const BlogManager: React.FC = () => {
 					)}
 
 					{view === 'admin-p' && (
-						<Card>
+						<Card style={{ borderRadius: 12, boxShadow: cardShadow }}>
 							<div
 								style={{
 									display: 'flex',
@@ -678,7 +688,7 @@ const BlogManager: React.FC = () => {
 					)}
 
 					{view === 'admin-t' && (
-						<Card>
+						<Card style={{ borderRadius: 12, boxShadow: cardShadow }}>
 							<div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
 								<Title level={4} style={{ marginBottom: 0 }}>
 									Quản lý thẻ
