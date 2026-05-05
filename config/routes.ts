@@ -143,6 +143,12 @@
 		component: './TodoList',
 	},
 	{
+		path: '/quan-ly-cong-viec',
+		name: 'Quản lý công việc',
+		icon: 'ProjectOutlined',
+		component: './QuanLyCongViec',
+	},
+	{
 		path: '/gioi-thieu',
 		name: 'About',
 		component: './TienIch/GioiThieu',
